@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @Controller
@@ -16,7 +17,9 @@ public class LoginController{
     private UserMapper userMapper;
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public String login(@RequestParam("username") String username,@RequestParam("pwd")String pwd){
+    public String login(@RequestParam("username") String username,@RequestParam("pwd")String pwd,
+                        HttpServletRequest request){
+        request.getParameter("Code");
         List<User> user = userMapper.login(username,pwd);
         if(user != null){
             return "success";

@@ -5,10 +5,39 @@
     <title>Title</title>
 </head>
 <body>
-<form action="/login" method="post">
-    请输入姓名<input name="username"  required="required"><br><br>
-    请输入密码<input name="pwd" type="password" required="required"><br><br>
-    <input type="submit" value="登录">
+<form id="loginform" method="post">
+    请输入姓名<input id="username" name="username"  required="required"><br><br>
+    请输入密码<input id="pwd" name="pwd" type="password" required="required"><br><br>
+    <div>
+        验证码:<input id="code" name="code" type="text" required="required"><br><br>
+        <img id="imgCode" name="imgCode" src="/generateCode" onclick="turncode()">
+    </div>
+    <input type="button" id="login" value="登录">
 </form>
+
 </body>
+<script type="text/javascript"  src="/js/jquery-3.4.1.js"></script>
+<script>
+    function turncode() {
+        $("#imgCode").attr("src", '/generateCode?' + Math.random());
+        var code = $("#code").val();
+        var imgcode = $("#imgCode").val().toString();
+        console.log(code);
+        console.log(imgcode);
+    }
+
+    $("#login").click(function () {
+        var code = $("#code").val();
+        var imgCode = $("#imgCode").val();
+        console.log(code, imgCode);
+        $.ajax({
+            type:"POST",
+            url: "/login",
+            data:{
+
+            }
+        })
+
+    });
+</script>
 </html>
