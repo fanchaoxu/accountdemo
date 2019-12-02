@@ -5,39 +5,56 @@
     <title>Title</title>
 </head>
 <body>
-<form id="loginform" method="post">
+<!--<form id="loginform" method="post" >
     请输入姓名<input id="username" name="username"  required="required"><br><br>
     请输入密码<input id="pwd" name="pwd" type="password" required="required"><br><br>
     <div>
-        验证码:<input id="code" name="code" type="text" required="required"><br><br>
+        请输入验证码:<input id="code" name="code" type="text" required="required"><br><br>
         <img id="imgCode" name="imgCode" src="/generateCode" onclick="turncode()">
     </div>
-    <input type="button" id="login" value="登录">
-</form>
+    <input type="button" id="login" value="登录" onclick="login()">
+</form>-->
+
+<div id="upload" >
+    请输入姓名<input id="username" name="username" type="text" required="required"><br><br>
+    请输入密码<input id="pwd" name="pwd" type="password" required="required"><br><br>
+    <div>
+        请输入验证码:<input id="code" name="code" type="text" required="required"><br><br>
+        <img id="imgCode" name="imgCode" src="/generateCode" onclick="turncode()">
+    </div>
+    <input type="button" value=" 登录 " onclick="login()"/>
+</div>
 
 </body>
 <script type="text/javascript"  src="/js/jquery-3.4.1.js"></script>
 <script>
     function turncode() {
         $("#imgCode").attr("src", '/generateCode?' + Math.random());
-        var code = $("#code").val();
-        var imgcode = $("#imgCode").val().toString();
-        console.log(code);
-        console.log(imgcode);
     }
 
-    $("#login").click(function () {
+    function login() {
+        var username = $("#username").val();
+        var pwd = $("#pwd").val();
         var code = $("#code").val();
-        var imgCode = $("#imgCode").val();
-        console.log(code, imgCode);
+
+        var adata = {
+            username: username,
+            pwd : pwd,
+            code:code,
+        };
         $.ajax({
-            type:"POST",
-            url: "/login",
-            data:{
-
-            }
-        })
-
-    });
+            //几个参数需要注意一下
+            type: "POST",//方法类型，或者用GET
+            dataType: "json",//预期服务器返回的数据类型，可以改成json
+            url: "/login" ,//ip:端口/项目名称/Servlet名称
+            data: adata,
+            success: function (result) { //获得后端判断的返回值
+                console.info(result)
+                if (result == "success") {
+                    window.location.href = "/success.html";
+                };
+            },
+        });
+    }
 </script>
 </html>
