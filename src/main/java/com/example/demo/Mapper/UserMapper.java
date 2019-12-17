@@ -10,6 +10,8 @@ import java.util.List;
 @Repository(value = "UserMapper")
 public interface UserMapper{
 
+    public List<User> login(@Param("username")String username,@Param("pwd")String pwd);
+
     public int count();
 
     public List<User> queryAll(int start,int row);

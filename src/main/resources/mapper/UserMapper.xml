@@ -12,6 +12,11 @@
         select count(*) from user_info;
     </select>
 
+    <select id="login"  parameterType="com.example.demo.Entity.User" resultMap="userMap">
+        select * from user_info where user_name =#{username} and user_pwd =#{pwd};
+    </select>
+
+
     <select id="queryAll" parameterType="Integer" resultMap="userMap">
         select * from user_info group by user_id asc limit #{param1},#{param2};
     </select>

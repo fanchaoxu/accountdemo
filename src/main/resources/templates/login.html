@@ -5,15 +5,6 @@
     <title>Title</title>
 </head>
 <body>
-<!--<form id="loginform" method="post" >
-    请输入姓名<input id="username" name="username"  required="required"><br><br>
-    请输入密码<input id="pwd" name="pwd" type="password" required="required"><br><br>
-    <div>
-        请输入验证码:<input id="code" name="code" type="text" required="required"><br><br>
-        <img id="imgCode" name="imgCode" src="/generateCode" onclick="turncode()">
-    </div>
-    <input type="button" id="login" value="登录" onclick="login()">
-</form>-->
 
 <form id="upload" >
     请输入姓名<input id="username" name="username" type="text" required="required"><br><br>
@@ -51,7 +42,7 @@
             success: function (result) { //获得后端判断的返回值
                 console.log(result.flag)
                 if (result.flag =="true") {
-                     window.location.href = "/success";
+                     window.location.href = "/querylist";
                 };
             },
         });

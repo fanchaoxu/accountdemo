@@ -39,6 +39,13 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public int count(){
-        return 0;
+        int size = userMapper.count();
+        return size;
+    }
+
+    @Override
+    public List<User> login(String username,String pwd){
+        List<User> user = userMapper.login(username,pwd);
+        return user;
     }
 }
