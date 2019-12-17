@@ -15,15 +15,15 @@
     <input type="button" id="login" value="登录" onclick="login()">
 </form>-->
 
-<div id="upload" >
+<form id="upload" >
     请输入姓名<input id="username" name="username" type="text" required="required"><br><br>
     请输入密码<input id="pwd" name="pwd" type="password" required="required"><br><br>
     <div>
         请输入验证码:<input id="code" name="code" type="text" required="required"><br><br>
         <img id="imgCode" name="imgCode" src="/generateCode" onclick="turncode()">
     </div>
-    <input type="button" value=" 登录 " onclick="login()"/>
-</div>
+    <input type="button" value=" 登录 " onclick="login()" />
+</form>
 
 </body>
 <script type="text/javascript"  src="/js/jquery-3.4.1.js"></script>
@@ -45,13 +45,13 @@
         $.ajax({
             //几个参数需要注意一下
             type: "POST",//方法类型，或者用GET
-            dataType: "json",//预期服务器返回的数据类型，可以改成json
+            dataType: "JSON",//预期服务器返回的数据类型，可以改成json
             url: "/login" ,//ip:端口/项目名称/Servlet名称
             data: adata,
             success: function (result) { //获得后端判断的返回值
-                console.info(result)
-                if (result == "success") {
-                    window.location.href = "/success.html";
+                console.log(result.flag)
+                if (result.flag =="true") {
+                     window.location.href = "/success";
                 };
             },
         });

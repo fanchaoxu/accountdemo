@@ -1,14 +1,16 @@
 package com.example.demo.Mapper;
 
 import com.example.demo.Entity.User;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 @Mapper
+@Repository(value = "UserMapper")
 public interface UserMapper{
-    @Select("select * from user_info where user_name =#{username}")
-    List<User> login(@Param("username") String username,@Param("pwd")String pwd);
+
+    public int count();
+
+    public List<User> queryAll(int start,int row);
 }
