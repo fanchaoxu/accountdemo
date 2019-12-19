@@ -24,7 +24,6 @@ public class UserServiceImpl implements UserService{
         int totalCount = userMapper.count();
         int totalPage = (totalCount % rows == 0) ? (totalCount / rows) : (totalCount / rows + 1); //总页数
         int start = (currentPage - 1) * rows; //起始位置
-        System.out.println(start + "*********************");
         List<User> list = userMapper.queryAll(start,rows);
 
         page.setRows(rows);
@@ -32,8 +31,6 @@ public class UserServiceImpl implements UserService{
         page.setTotalCount(totalCount);
         page.setTotalPage(totalPage);
         page.setList(list);
-
-
         return page;
     }
 
@@ -47,5 +44,11 @@ public class UserServiceImpl implements UserService{
     public List<User> login(String username,String pwd){
         List<User> user = userMapper.login(username,pwd);
         return user;
+    }
+
+    @Override
+    public int delete(int id){
+        userMapper.delete(id);
+        return 0;
     }
 }

@@ -12,5 +12,7 @@ public interface UserService{
 
     public int count();
 
-    public List<User> login(@Param("username")String username,@Param("pwd")String pwd);
+    public List<User> login(@Param("username") String username,@Param("pwd") String pwd);
+
+    public int delete(@Param("id") int id);
 }

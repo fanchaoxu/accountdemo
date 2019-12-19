@@ -15,4 +15,6 @@ public interface UserMapper{
     public int count();
 
     public List<User> queryAll(int start,int row);
+
+    public int delete(int id);
 }

@@ -21,4 +21,8 @@
         select * from user_info group by user_id asc limit #{param1},#{param2};
     </select>
 
+    <delete id="delete" parameterType="integer">
+        delete  from user_info where user_id = #{id};
+    </delete>
+
 </mapper>
