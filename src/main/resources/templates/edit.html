@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<p>请进行修改操作</p>
+
+<form th:model="${user}" action="/edit" method="post">
+    <input type="hidden" name="id" th:value="${user.id}" >
+    用户名： &nbsp;&nbsp;<input  name="username" th:value="${user.username}"><br>
+    用户密码：<input name="pwd" th:value="${user.pwd}"><br>
+    <button type="submit">修改</button>
+</form>
+</body>
+</html>

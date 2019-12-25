@@ -10,11 +10,17 @@ import java.util.List;
 @Repository(value = "UserMapper")
 public interface UserMapper{
 
-    public List<User> login(@Param("username")String username,@Param("pwd")String pwd);
+    public User login(@Param("username")String username,@Param("pwd")String pwd);
 
     public int count();
 
     public List<User> queryAll(int start,int row);
 
     public int delete(int id);
+
+    public int edit(int id,String username,String pwd);
+
+    public User query(int id);
+
+    public int add(String username,String pwd);
 }

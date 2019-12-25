@@ -6,59 +6,86 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
-<table id="test" border="1" style="width: 500px;">
-    <tr style="background-color: #ffd777;font-size: 16px;">
-        <th style="text-align: center;"  class="adiid">编号</th>
-        <th style="text-align: center;">用户名</th>
-        <th style="text-align: center;">密码</th>
-        <th style="text-align: center;">编辑</th>
-    </tr>
-    <tr th:each="user:${userList.list}">
-        <td style="text-align: center;"  th:text="${user.id}"></td>
-        <td style="text-align: center;" th:text="${user.username}"></td>
-        <td style="text-align: center;" th:text="${user.pwd}"></td>
-        <td style="text-align: center;">
-            <button onclick="deleteUser(this)">Edit</button>&nbsp;&nbsp;
-            <a class="btn btn-danger" th:href="@{/delete(id=${user.id})}">删除</a>
-    </tr>
-</table>
+<div class="float-left">
+    <table id="test" border="1" style="width: 500px;">
+        <tr style="background-color: #ffd777;font-size: 16px;">
+            <th style="text-align: center;">编号</th>
+            <th style="text-align: center;">用户名</th>
+            <th style="text-align: center;">密码</th>
+            <th style="text-align: center;">编辑</th>
+        </tr>
+        <tr th:each="user:${userList.list}">
+            <td style="text-align: center;" id="userId" th:text="${user.id}"></td>
+            <td style="text-align: center;" th:text="${user.username}"></td>
+            <td style="text-align: center;" th:text="${user.pwd}"></td>
+            <td style="text-align: center;">
+                <!--  <button onclick="editUser(this)">edit</button>&nbsp;&nbsp;-->
+                <a class="btn btn-success" th:href="@{/edit(id=${user.id})}">edit</a>&nbsp;&nbsp;
 
-<nav aria-label="Page navigation">
-    <ul class="pagination">
-        <li th:if="${userList.currentPage ==1}" class="disabled">
-            <a th:href="@{#}" aria-label="Previous">
-                <span aria-hidden="true">上一页</span>
-            </a>
-        </li>
-        <li th:if="${userList.currentPage >1}">
-            <a th:href="@{/querylist(currentPage = ${userList.currentPage - 1})}" aria-label="Previous">
-                <span aria-hidden="true">上一页</span>
-            </a>
-        </li>&nbsp;&nbsp;&nbsp;
-        <th:block th:each="i : ${#numbers.sequence(1,userList.totalPage)}">
-            <li th:if="${userList.currentPage == i}">
-                <a th:href="@{/querylist(currentPage = ${i})}" th:text="${i}"></a>
-            </li>&nbsp;
-        </th:block>
-        <li th:if="${userList.currentPage == userList.totalPage}" class="disabled">
-            <a th:href="@{#}" aria-label="Previous">
-                <span aria-hidden="true">下一页</span>
-            </a>
-        </li>
-        <li th:if="${userList.currentPage < userList.totalPage}" class="disabled">
-            <a th:href="@{/querylist(currentPage = ${userList.currentPage + 1 })}" aria-label="Previous">
-                <span aria-hidden="true">下一页</span>
-            </a>
-        </li>
-    </ul>
-</nav>
+                <button class="btn btn-danger" onclick="deleteuser(this)">delete</button>&nbsp;&nbsp;
+        </tr>
+    </table>
+    <nav aria-label="Page navigation">
+        <ul class="pagination">
+            <li th:if="${userList.currentPage ==1}" class="disabled">
+                <a th:href="@{#}" aria-label="Previous">
+                    <span aria-hidden="true">上一页</span>
+                </a>
+            </li>
+            <li th:if="${userList.currentPage >1}">
+                <a th:href="@{/querylist(currentPage = ${userList.currentPage - 1})}" aria-label="Previous">
+                    <span aria-hidden="true">上一页</span>
+                </a>
+            </li>&nbsp;&nbsp;&nbsp;
+            <th:block th:each="i : ${#numbers.sequence(1,userList.totalPage)}">
+                <li th:if="${userList.currentPage == i}">
+                    <a th:href="@{/querylist(currentPage = ${i})}" th:text="${i}"></a>
+                </li>&nbsp;
+            </th:block>
+            <li th:if="${userList.currentPage == userList.totalPage}" class="disabled">
+                <a th:href="@{#}" aria-label="Previous">
+                    <span aria-hidden="true">下一页</span>
+                </a>
+            </li>
+            <li th:if="${userList.currentPage < userList.totalPage}" class="disabled">
+                <a th:href="@{/querylist(currentPage = ${userList.currentPage + 1 })}" aria-label="Previous">
+                    <span aria-hidden="true">下一页</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</div>
+<button  class="btn btn-primary float-left" th:text="新增"><a href="/add"></a></button>
+
+
+
+<div id="edit" class="hide">
+
+</div>
+
 </body>
 <script type="text/javascript"  src="/js/jquery-3.4.1.js"></script>
 <script>
-    function deleteUser(thisObj) {
-        var tr = $(thisObj).closest("tr");
-        alert(tr);
+    function deleteuser(obj) {
+        var tr = $(obj).parents("tr");
+        var userId = tr.find("td:eq(0)").text();
+        $.ajax({
+            //几个参数需要注意一下
+            type: "POST",//方法类型，或者用GET
+            url: "/delete" ,//ip:端口/项目名称/Servlet名称
+            dataType: "json",
+            data: {
+                "id" :userId
+            },
+            success: function (result) { //获得后端判断的返回值
+                if (result.resultCode == "0") {
+                    window.location.href = "/querylist";
+                };
+            },
+        });
     }
+
+
 </script>
 
 </html>

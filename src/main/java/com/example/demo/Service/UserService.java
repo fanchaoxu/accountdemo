@@ -4,7 +4,6 @@ import com.example.demo.Entity.User;
 import com.example.demo.Utils.Page;
 import org.apache.ibatis.annotations.Param;
 
-import java.util.List;
 
 
 public interface UserService{
@@ -12,7 +11,13 @@ public interface UserService{
 
     public int count();
 
-    public List<User> login(@Param("username") String username,@Param("pwd") String pwd);
+    public User login(@Param("username") String username,@Param("pwd") String pwd);
 
     public int delete(@Param("id") int id);
+
+    public int edit(@Param("id")int id,@Param("username")String name,@Param("pwd")String pwd);
+
+    public User query(@Param("id") int id);
+
+    public int add(@Param("username") String username,@Param("pwd") String pwd);
 }

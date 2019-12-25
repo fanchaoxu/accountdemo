@@ -41,14 +41,30 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public List<User> login(String username,String pwd){
-        List<User> user = userMapper.login(username,pwd);
+    public User login(String username,String pwd){
+        User user = userMapper.login(username,pwd);
         return user;
     }
 
     @Override
     public int delete(int id){
-        userMapper.delete(id);
-        return 0;
+        return userMapper.delete(id);
     }
+
+    @Override
+    public int edit(int id,String name,String pwd){
+        return userMapper.edit(id,name,pwd);
+    }
+
+    @Override
+    public User query(int id){
+        User user = userMapper.query(id);
+        return user;
+    }
+
+    @Override
+    public int add(String username,String pwd){
+        return userMapper.add(username,pwd);
+    }
+
 }

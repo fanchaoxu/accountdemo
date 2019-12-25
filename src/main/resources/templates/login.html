@@ -40,8 +40,7 @@
             url: "/login" ,//ip:端口/项目名称/Servlet名称
             data: adata,
             success: function (result) { //获得后端判断的返回值
-                console.log(result.flag)
-                if (result.flag =="true") {
+                if (result.resultCode == "0") {
                      window.location.href = "/querylist";
                 };
             },
